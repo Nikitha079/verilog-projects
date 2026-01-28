@@ -1,0 +1,30 @@
+module mux_2x1_tb;
+  
+  reg i0,i1,s;//input to dut
+  wire y;//output from dut
+  
+  mux_2x1 DUT(.i0(i0),.i1(i1),.s(s),.y(y));
+  
+  initial begin
+    
+    $display("time i0 i1 s y");
+    $display($time,"i0=%b i1=%b s=%b y=%b",i0,i1,s,y);
+    
+    s=0;
+    i0=0;i1=1'bx;#10;
+    i0=1;i1=1'bx;#10;
+    s=1;
+    i0=1'bx;i1=0;#10;
+    i0=1'bx;i1=1;#10;
+    
+    #10$finish;
+    
+  end
+  
+  initial begin
+    
+    $dumpfile("dump.vcd");
+    $dumpvars(0,mux_2x1_tb);
+    
+  end
+endmodule
